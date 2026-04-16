@@ -1,5 +1,7 @@
 # goroutinelocal
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/sonnt85/goroutinelocal.svg)](https://pkg.go.dev/github.com/sonnt85/goroutinelocal)
+
 Generic goroutine-local storage for Go — per-goroutine values isolated by goroutine ID.
 
 ## Installation
