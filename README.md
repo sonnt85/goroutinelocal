@@ -40,6 +40,10 @@ m := local.GetMap() // map[goroutineID]value
 - `Remove()` — delete the value for the current goroutine
 - `GetMap() map[int64]T` — return a snapshot of all goroutine values
 
+## Author
+
+**sonnt85** — [thanhson.rf@gmail.com](mailto:thanhson.rf@gmail.com)
+
 ## License
 
 MIT License - see [LICENSE](LICENSE) for details.
