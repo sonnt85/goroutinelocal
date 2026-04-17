@@ -51,30 +51,40 @@ func TestRuntimeGoroutineLocal(t *testing.T) {
 
 	time.Sleep(2 * time.Second)
 	gl.Remove()
-	// fmt.Println("end", gl.GetMap())
-
 }
 
 func startAllocRuntime() {
 	for i := 0; i < 1000; i++ {
+		i := i
 		runtime.GC()
 		go func() {
 			glruntime1.Set(i)
 			glruntime.Set(make([]byte, 10*1024*1024))
-			// glruntime1.Remove()
 			fmt.Println("GetGoroutineId", runtime.GetGoroutineId(), glruntime1.Get())
 			time.Sleep(1 * time.Microsecond * 10)
 		}()
-		// time.Sleep(1 * time.Second)
 	}
 	fmt.Println("done")
 }
 
+// TestRuntimeGoroutineLocalLeak is a long-running memory-leak soak test
+// that allocates many goroutines and observes heap growth. Skipped by
+// default (testing.Short()) so it does not block regular test runs.
+// To execute: go test -run TestRuntimeGoroutineLocalLeak -timeout 0
 func TestRuntimeGoroutineLocalLeak(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping long soak test in -short mode")
+	}
 
 	var stats runtime.MemStats
+	stop := make(chan struct{})
 	go func() {
 		for {
+			select {
+			case <-stop:
+				return
+			default:
+			}
 			runtime.GC()
 			debug.FreeOSMemory()
 			runtime.ReadMemStats(&stats)
@@ -85,6 +95,6 @@ func TestRuntimeGoroutineLocalLeak(t *testing.T) {
 	}()
 
 	startAllocRuntime()
-
-	time.Sleep(10000 * time.Second)
+	time.Sleep(10 * time.Second)
+	close(stop)
 }

@@ -1,6 +1,7 @@
 module github.com/sonnt85/goroutinelocal
 
-go 1.21
+go 1.25.0
+
 toolchain go1.25.5
 
 require github.com/sonnt85/gosystem v0.0.0-20250305050142-a436370a595c
@@ -37,6 +38,7 @@ require (
 	github.com/sonnt85/gofilepath v0.0.0-20260416113211-bc6a232e4548 // indirect
 	github.com/sonnt85/gogmap v0.0.0-20240829035007-c95925f2c46d // indirect
 	github.com/sonnt85/gosutils v0.0.0-20251021114853-09b4d7cee7a2 // indirect
+	github.com/sonnt85/strcase v1.0.0 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
 	github.com/spf13/viper v1.21.0 // indirect
 	github.com/tidwall/gjson v1.18.0 // indirect
